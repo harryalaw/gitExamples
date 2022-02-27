@@ -1,0 +1,112 @@
+Things to cover:
+    - Destructuring props
+
+    Both in terms of the fact that the functions are
+
+    const Component = (props) => {
+        return (<div> I'm a component </div>);
+    }
+
+    So can split out the props in the function call
+        ({arg1, arg2, arg3})
+
+    But also when providing args to it:
+    <Component props={props} />
+    vs
+    <Component arg1={arg1} arg2={arg2} />
+
+
+What goes into a component:
+    Think about what data a component needs
+    - Is it props or is it state?
+        Think about if you had two of the same component,
+        If you would want a change to affect both then that's props
+        Otherwise it is probably state
+        
+
+Reusability:
+    Components should be able to be combined and reused
+    Don't need to make things overly specific
+    Think of what might want to be reused
+    Consider lifting things into props
+        OnClick events could be instead a function that is passed to the object
+    If you find yourself writing two very similar components there's a chance that you could just rework them and combine shared state
+
+One Prop Per Line:
+    If I have an UserCard component that has a username, avatar, and status
+    I would want to define that as
+    const UserCard = ({
+        username,
+        avatar,
+        status}) => {
+        return ( ...)
+    }
+    and invoke it using:
+    <UserCard 
+        username={username}
+        avatar={avatar}
+        status={status}
+    />
+    
+Mention immutability?
+    React knows when to rerender based on finding out when information has changed
+    It's a lot easier to know when info has changed if the information is completely different rather than slightly different
+
+
+
+
+// Destructure props;
+    In javascript you can destructure objects to get access to their values
+    so instead of writing
+
+    const Component = (props) => {
+        return (
+            <div>{props.hi}</div>
+            <div>{props.world}</div>
+            <div>{props.anotherProp}</div>
+    }
+    
+    you can write:
+    
+    const Component = ({hi, world, anotherProp}) => {
+        return (
+            <div>{hi}</div>
+            <div>{world}</div>
+            <div>{anotherProp}</div>
+        )
+    } 
+
+    This also works in general with objects so you can do
+
+    const {hi, world, anotherProp} = props;
+
+    in this first case
+
+    * Useful because:
+        Clear what arguments the component is expecting
+        Don't have to write "props" so much in your code
+
+
+
+// One prop per line
+
+    <Component hi={hi} world={world} anotherProp={anotherProp}/>
+
+    Can become unwieldy to read, might have multiple props
+
+    So convert it to:
+    <Component
+        hi={hi}
+        world={world}
+        anotherProp={anotherProp}
+    />
+
+    takes more visual space but it's easier to see each component as it's
+    a separate line
+
+    (if there's just one prop you can get away with inlining thing
+
+    * Useful beacuse:
+        Clear what props are being passed to a component
+
+
